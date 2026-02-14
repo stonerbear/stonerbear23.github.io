@@ -2,49 +2,58 @@
 <html>
 <head>
     <title>Stoner Bear</title>
-    <style>
-        body {
-            background-color: black;
-            color: #0B3D2E;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .hero {
-            padding: 100px 20px;
-        }
-        h1 {
-            font-size: 50px;
-            letter-spacing: 3px;
-        }
-        .slogan {
-            font-size: 20px;
-            margin: 20px 0;
-        }
-        .btn {
-            background-color: #39FF14;
-            color: black;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin: 20px;
-        }
-        .btn:hover {
-            box-shadow: 0 0 20px #39FF14;
-        }
-        .section {
-            padding: 60px 20px;
-        }
-    </style>
+   <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: #0B3D2E;
+        text-align: center;
+        background: black;
+    }
+
+    .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                    url("logo.jpeg") center/contain no-repeat;
+    }
+
+    h1 {
+        font-size: 60px;
+        letter-spacing: 5px;
+        margin: 0;
+        color: #39FF14;
+    }
+
+    .slogan {
+        font-size: 20px;
+        margin: 20px 0;
+        color: #0B3D2E;
+    }
+
+    .btn {
+        background-color: #39FF14;
+        color: black;
+        padding: 15px 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+        display: inline-block;
+    }
+
+    .btn:hover {
+        box-shadow: 0 0 20px #39FF14;
+    }
+</style>
 </head>
 <body>
-<div style="padding:60px;">
-    <img src="logo.jpeg" width="250">
-</div>
+
 <div class="hero">
-    
+    <h1>STONER BEAR</h1>
     <div class="slogan">No noise. No rush. Just intention.</div>
     <a href="shop.html" class="btn">SHOP THE DROP</a>
 </div>
