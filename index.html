@@ -2,55 +2,87 @@
 <html>
 <head>
     <title>Stoner Bear</title>
-   <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        color: #0B3D2E;
-        text-align: center;
-        background: black;
-    }
 
-    .hero {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
-                    url("logo.jpeg") center/contain no-repeat;
-    }
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: black;
+            color: white;
+            text-align: center;
+        }
 
-    h1 {
-        font-size: 60px;
-        letter-spacing: 5px;
-        margin: 0;
-        color: #39FF14;
-    }
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: black;
+            padding: 15px;
+            z-index: 1000;
+        }
 
-    .slogan {
-        font-size: 20px;
-        margin: 20px 0;
-        color: #0B3D2E;
-    }
+        .nav a {
+            color: #39FF14;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    .btn {
-        background-color: #39FF14;
-        color: black;
-        padding: 15px 30px;
-        text-decoration: none;
-        font-weight: bold;
-        margin-top: 20px;
-        display: inline-block;
-    }
+        .nav a:hover {
+            text-shadow: 0 0 10px #39FF14;
+        }
 
-    .btn:hover {
-        box-shadow: 0 0 20px #39FF14;
-    }
-</style>
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background:
+                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+                url("logo.jpeg") center/contain no-repeat;
+        }
+
+        h1 {
+            font-size: 60px;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        .slogan {
+            margin: 20px 0;
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .btn {
+            background-color: #39FF14;
+            color: black;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 20px #39FF14;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+    </style>
 </head>
+
 <body>
+
+<div class="nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="https://instagram.com/stonerbear23" target="_blank">Instagram</a>
+</div>
 
 <div class="hero">
     <h1>STONER BEAR</h1>
@@ -63,10 +95,6 @@
     <p>Built for the calm ones.</p>
     <p>The focused ones.</p>
     <p>The ones who move different.</p>
-</div>
-
-<div class="section">
-    <a href="https://instagram.com/stonerbear23" class="btn">FOLLOW ON INSTAGRAM</a>
 </div>
 
 </body>
