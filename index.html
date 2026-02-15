@@ -7,30 +7,31 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
             background: black;
             color: white;
-            text-align: center;
+            font-family: 'Trebuchet MS', sans-serif;
+            overflow-x: hidden;
         }
 
-        .nav {
+        /* Animated Smoke Background */
+        body::before {
+            content: "";
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: black;
-            padding: 15px;
-            z-index: 1000;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.04), transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.04), transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03), transparent 60%);
+            animation: smokeMove 30s linear infinite;
+            z-index: -1;
         }
 
-        .nav a {
-            color: #39FF14;
-            margin: 0 20px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .nav a:hover {
-            text-shadow: 0 0 10px #39FF14;
+        @keyframes smokeMove {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .hero {
@@ -39,62 +40,78 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background:
-                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-                url("logo.jpeg") center/contain no-repeat;
+            text-align: center;
+            padding: 20px;
         }
 
-        h1 {
-            font-size: 60px;
-            letter-spacing: 5px;
-            margin: 0;
+        .brand {
+            font-size: 70px;
+            letter-spacing: 8px;
+            font-weight: bold;
+            color: gold;
+            animation: glow 3s ease-in-out infinite alternate;
         }
 
-        .slogan {
-            margin: 20px 0;
+        @keyframes glow {
+            from { text-shadow: 0 0 10px gold; }
+            to { text-shadow: 0 0 30px #39FF14; }
+        }
+
+        .tagline {
+            margin-top: 20px;
             font-size: 18px;
-            opacity: 0.8;
+            letter-spacing: 3px;
+            color: #ccc;
+        }
+
+        .buttons {
+            margin-top: 40px;
         }
 
         .btn {
-            background-color: #39FF14;
+            background: gold;
             color: black;
-            padding: 15px 30px;
+            padding: 14px 30px;
             text-decoration: none;
             font-weight: bold;
+            letter-spacing: 2px;
+            margin: 10px;
+            border-radius: 4px;
+            transition: 0.3s;
             display: inline-block;
-            margin-top: 20px;
         }
 
         .btn:hover {
-            box-shadow: 0 0 20px #39FF14;
+            background: #39FF14;
+            box-shadow: 0 0 25px #39FF14;
         }
 
-        .section {
-            padding: 80px 20px;
+        .footer-text {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #555;
         }
     </style>
 </head>
 
 <body>
 
-<div class="nav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="https://instagram.com/stonerbear23" target="_blank">Instagram</a>
-</div>
-
 <div class="hero">
-    <h1>STONER BEAR</h1>
-    <div class="slogan">No noise. No rush. Just intention.</div>
-    <a href="shop.html" class="btn">SHOP THE DROP</a>
+    <div class="brand">STONER BEAR</div>
+    <div class="tagline">TRAP ENERGY • LUXURY MINDSET • LIMITED DROPS</div>
+
+    <div class="buttons">
+        <a href="shop.html" class="btn">ENTER SHOP</a>
+        <a href="classic-tee.html" class="btn">VIEW DROP</a>
+    </div>
 </div>
 
-<div class="section">
-    <p>Stoner Bear is a mindset.</p>
-    <p>Built for the calm ones.</p>
-    <p>The focused ones.</p>
-    <p>The ones who move different.</p>
+<div class="footer-text">
+    © 2026 STONER BEAR — ALL RIGHTS RESERVED
 </div>
 
 </body>
