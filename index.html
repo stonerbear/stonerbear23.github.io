@@ -13,6 +13,40 @@
             overflow-x: hidden;
         }
 
+        /* NAVIGATION BAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-logo {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: gold;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            margin-left: 30px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #39FF14;
+        }
+
         /* Smoke Background */
         body::before {
             content: "";
@@ -40,11 +74,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
             text-align: center;
+            position: relative;
+            padding-top: 80px;
         }
 
-        /* Floating Logo Background */
         .logo-bg {
             position: absolute;
             width: 500px;
@@ -104,6 +138,17 @@
 </head>
 
 <body>
+
+<div class="navbar">
+    <div class="nav-logo">STONER BEAR</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="classic-tee.html">Classic Tees</a>
+        <a href="hoodies.html">Hoodies</a>
+        <a href="beanies-accessories.html">Beanies & Accessories</a>
+        <a href="shop.html">Shop</a>
+    </div>
+</div>
 
 <div class="hero">
     <img src="logo.png" class="logo-bg">
