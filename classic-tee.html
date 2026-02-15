@@ -5,12 +5,34 @@
 
     <style>
         body {
-            background: linear-gradient(to bottom, #000000, #0a0a0a);
-            color: white;
-            font-family: 'Trebuchet MS', sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Trebuchet MS', sans-serif;
+            color: white;
             text-align: center;
+            background: black;
+            overflow-x: hidden;
+        }
+
+        /* Smoke Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05), transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04), transparent 60%);
+            animation: smokeMove 25s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes smokeMove {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .nav {
@@ -39,7 +61,7 @@
         }
 
         .product {
-            background: #111;
+            background: rgba(17,17,17,0.9);
             padding: 20px;
             border-radius: 12px;
             border: 1px solid #222;
@@ -133,7 +155,7 @@
         <h2>Antisocial Classic Set</h2>
         <div class="price">₦ --</div>
         <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
-    </div>
+        </div>
 
     <div class="product">
         <img src="psycho.jpeg">
