@@ -7,189 +7,188 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Trebuchet MS', sans-serif;
-            color: white;
-            text-align: center;
             background: black;
-            overflow-x: hidden;
+            color: white;
+            font-family: 'Trebuchet MS', sans-serif;
         }
 
-        /* Smoke Background */
-        body::before {
-            content: "";
+        /* NAVBAR */
+        .navbar {
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05), transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 40%),
-                        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04), transparent 60%);
-            animation: smokeMove 25s linear infinite;
-            z-index: -1;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        @keyframes smokeMove {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        .nav {
-            padding: 25px;
-        }
-
-        .nav a {
-            color: gold;
-            text-decoration: none;
+        .nav-logo {
+            font-size: 20px;
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            color: gold;
         }
 
-        h1 {
-            margin-top: 40px;
-            font-size: 45px;
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            margin-left: 25px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #39FF14;
+        }
+
+        .page-title {
+            margin-top: 120px;
+            text-align: center;
+            font-size: 40px;
             letter-spacing: 6px;
             color: gold;
         }
 
+        /* PRODUCT GRID */
         .products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             padding: 60px;
         }
 
-        .product {
-            background: rgba(17,17,17,0.9);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #222;
-            transition: 0.4s ease;
-            position: relative;
+        .card {
+            background: #111;
+            border-radius: 8px;
             overflow: hidden;
+            transition: 0.4s;
+            text-align: center;
+            padding-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .product:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 0 25px #39FF14;
-            border: 1px solid gold;
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(57,255,20,0.4);
         }
 
-        .product img {
+        .card img {
             width: 100%;
-            border-radius: 10px;
-            transition: 0.4s ease;
+            height: 300px;
+            object-fit: cover;
+            transition: 0.4s;
         }
 
-        .product:hover img {
-            transform: scale(1.05);
+        .card:hover img {
+            transform: scale(1.08);
         }
 
-        .badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: gold;
-            color: black;
-            padding: 5px 10px;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1px;
+        .product-name {
+            margin-top: 15px;
+            font-size: 16px;
+            letter-spacing: 2px;
         }
 
         .price {
-            color: #39FF14;
+            margin-top: 8px;
+            color: gold;
             font-weight: bold;
-            margin: 15px 0;
-            font-size: 18px;
         }
 
-        .btn {
+        .add-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
             background: gold;
             color: black;
-            padding: 10px 22px;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             font-weight: bold;
-            display: inline-block;
-            border-radius: 4px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             transition: 0.3s;
         }
 
-        .btn:hover {
+        .add-btn:hover {
             background: #39FF14;
-            box-shadow: 0 0 20px #39FF14;
+            box-shadow: 0 0 15px #39FF14;
         }
+
     </style>
 </head>
 
 <body>
 
-<div class="nav">
-    <a href="shop.html">← BACK TO SHOP</a>
+<div class="navbar">
+    <div class="nav-logo">STONER BEAR</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="classic-tee.html">Classic Tees</a>
+        <a href="hoodies.html">Hoodies</a>
+        <a href="beanies-accessories.html">Beanies & Accessories</a>
+    </div>
 </div>
 
-<h1>CLASSIC TEE DROP</h1>
+<div class="page-title">CLASSIC TEES</div>
 
 <div class="products">
 
-    <div class="product">
-        <div class="badge">LIMITED</div>
-        <img src="traphouse.jpeg">
-        <h2>Traphouse Armless</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="traphouse-armless.jpeg">
+        <div class="product-name">TRAPHOUSE ARMLESS</div>
+        <div class="price">$75</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
-    <div class="product">
-        <img src="origins.jpeg">
-        <h2>Stoner Bear Origins Tee</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="stoner-bear-origins.jpeg">
+        <div class="product-name">STONER BEAR ORIGINS TEE</div>
+        <div class="price">$80</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
-    <div class="product">
-        <div class="badge">NEW</div>
-        <img src="antisocial.jpeg">
-        <h2>Antisocial Classic Set</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
-        </div>
-
-    <div class="product">
-        <img src="psycho.jpeg">
-        <h2>Psycho Classic Set</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="antisocial-classic.jpeg">
+        <div class="product-name">ANTISOCIAL CLASSIC SET</div>
+        <div class="price">$95</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
-    <div class="product">
-        <img src="classictee.jpeg">
-        <h2>Stoner Bear Classic Tee</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="psycho-classic.jpeg">
+        <div class="product-name">PSYCHO CLASSIC SET</div>
+        <div class="price">$95</div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+    <div class="card">
+        <img src="stoner-bear-classic.jpeg">
+        <div class="product-name">STONER BEAR CLASSIC TEE</div>
+        <div class="price">$85</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
-    <div class="product">
-        <img src="classicset.jpeg">
-        <h2>Stoner Bear Classic Set</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="stoner-bear-set.jpeg">
+        <div class="product-name">STONER BEAR CLASSIC SET</div>
+        <div class="price">$110</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
-    <div class="product">
-        <img src="heartbreak.jpeg">
-        <h2>Heartbreak Junkie Armless</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="heartbreak-armless.jpeg">
+        <div class="product-name">HEARTBREAK JUNKIE ARMLESS</div>
+        <div class="price">$75</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
-    <div class="product">
-        <img src="limits.jpeg">
-        <h2>All Limits Are Self Imposed Armless</h2>
-        <div class="price">₦ --</div>
-        <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">ORDER NOW</a>
+    <div class="card">
+        <img src="self-imposed-armless.jpeg">
+        <div class="product-name">ALL LIMITS ARE SELF IMPOSED</div>
+        <div class="price">$75</div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
 
 </div>
