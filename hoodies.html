@@ -15,51 +15,53 @@ body {
 
 header {
     text-align: center;
-    padding: 40px 0;
-    font-size: 28px;
+    padding: 50px 0;
+    font-size: 30px;
     color: #d4af37;
     letter-spacing: 2px;
 }
 
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
     padding: 40px;
 }
 
 .product-card {
     background: #111;
-    padding: 20px;
+    padding: 25px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 30px rgba(212,175,55,0.1);
-    transition: 0.3s;
+    box-shadow: 0 0 35px rgba(212,175,55,0.15);
+    transition: 0.3s ease;
 }
 
 .product-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 40px rgba(212,175,55,0.3);
+    box-shadow: 0 0 45px rgba(212,175,55,0.4);
 }
 
 .product-card img {
     width: 100%;
     border-radius: 15px;
+    margin-bottom: 15px;
 }
 
 .product-card h3 {
-    margin: 15px 0 10px;
+    margin: 10px 0;
 }
 
 .price {
     color: #d4af37;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin: 10px 0 20px;
+    font-size: 18px;
 }
 
 .buy-btn {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 25px;
     background: #d4af37;
     color: black;
     border-radius: 25px;
@@ -78,31 +80,31 @@ header {
 <div class="products">
 
     <div class="product-card">
-        <img src="hoodie1.jpeg" alt="Stoner Bear Hoodie">
+        <img src="stoner bear classic hoodie.jpeg" alt="Stoner Bear Hoodie">
         <h3>Stoner Bear Signature Hoodie</h3>
         <div class="price">$85</div>
-        <a class="buy-btn" 
+        <a class="buy-btn"
            href="checkout.html?name=Stoner Bear Signature Hoodie&price=85">
            Buy Now
         </a>
     </div>
 
     <div class="product-card">
-        <img src="hoodie2.jpeg" alt="Heartbreak Hoodie">
-        <h3>Heartbreak Junkie Hoodie</h3>
+        <img src="sb wood walker hoodie.jpeg" alt="Wood Walker Hoodie">
+        <h3>Wood Walker Hoodie</h3>
         <div class="price">$90</div>
-        <a class="buy-btn" 
-           href="checkout.html?name=Heartbreak Junkie Hoodie&price=90">
+        <a class="buy-btn"
+           href="checkout.html?name=Wood Walker Hoodie&price=90">
            Buy Now
         </a>
     </div>
 
     <div class="product-card">
-        <img src="hoodie3.jpeg" alt="Trap Hoodie">
-        <h3>Trap Luxury Hoodie</h3>
+        <img src="antisocial sweatshirt.jpeg" alt="Antisocial Hoodie">
+        <h3>Antisocial Hoodie</h3>
         <div class="price">$95</div>
-        <a class="buy-btn" 
-           href="checkout.html?name=Trap Luxury Hoodie&price=95">
+        <a class="buy-btn"
+           href="checkout.html?name=Antisocial Hoodie&price=95">
            Buy Now
         </a>
     </div>
