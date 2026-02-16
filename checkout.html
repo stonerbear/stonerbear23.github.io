@@ -11,21 +11,49 @@ body {
     font-family: Arial, sans-serif;
     background: #0c0c0c;
     color: white;
-    text-align: center;
 }
 
 .container {
-    margin-top: 100px;
+    max-width: 500px;
+    margin: 80px auto;
+    background: #111;
+    padding: 30px;
+    border-radius: 15px;
 }
 
 h1 {
-    font-size: 36px;
+    text-align: center;
 }
 
 .product-info {
-    margin-top: 30px;
-    font-size: 20px;
+    margin: 20px 0;
+    font-size: 18px;
     color: #d4af37;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background: #d4af37;
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -34,13 +62,35 @@ h1 {
 
 <div class="container">
     <h1>Checkout</h1>
+
     <div class="product-info" id="productDetails"></div>
+
+    <label>Size</label>
+    <select>
+        <option>Small</option>
+        <option>Medium</option>
+        <option>Large</option>
+        <option>XL</option>
+    </select>
+
+    <label>Quantity</label>
+    <input type="number" value="1" min="1" id="qty">
+
+    <label>Full Name</label>
+    <input type="text" placeholder="Enter your name">
+
+    <label>Email</label>
+    <input type="email" placeholder="Enter your email">
+
+    <button onclick="alert('Payment integration coming next 🔥')">
+        Proceed to Payment
+    </button>
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
-const price = params.get("price");
+const price = parseInt(params.get("price"));
 
 document.getElementById("productDetails").innerHTML =
     name + " - $" + price;
