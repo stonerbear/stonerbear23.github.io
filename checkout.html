@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | Stoner Bear</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0c0c0c;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+.product-info {
+    margin-top: 30px;
+    font-size: 20px;
+    color: #d4af37;
+}
+
+button {
+    margin-top: 40px;
+    padding: 12px 30px;
+    background: #d4af37;
+    color: black;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Checkout</h1>
+    <div class="product-info" id="productDetails"></div>
+
+    <button onclick="alert('Payment system coming soon')">
+        Proceed to Payment
+    </button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+const price = params.get("price");
+
+document.getElementById("productDetails").innerHTML =
+    name + " - $" + price;
+</script>
+
+</body>
+</html>
