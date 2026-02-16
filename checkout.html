@@ -9,7 +9,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0c0c0c;
+    background: linear-gradient(135deg, #0c0c0c, #1a1a1a);
     color: white;
 }
 
@@ -17,12 +17,14 @@ body {
     max-width: 500px;
     margin: 80px auto;
     background: #111;
-    padding: 30px;
-    border-radius: 15px;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(212,175,55,0.15);
 }
 
 h1 {
     text-align: center;
+    color: #d4af37;
 }
 
 .product-info {
@@ -34,26 +36,38 @@ h1 {
 label {
     display: block;
     margin-top: 15px;
+    font-size: 14px;
 }
 
 select, input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: 5px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: none;
+    background: #1c1c1c;
+    color: white;
 }
 
 button {
-    margin-top: 25px;
+    margin-top: 20px;
     width: 100%;
-    padding: 12px;
-    background: #d4af37;
-    color: black;
+    padding: 14px;
     font-weight: bold;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     cursor: pointer;
+    font-size: 15px;
+}
+
+.whatsapp-btn {
+    background: #25D366;
+    color: white;
+}
+
+.instagram-btn {
+    background: linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+    color: white;
 }
 </style>
 </head>
@@ -66,7 +80,7 @@ button {
     <div class="product-info" id="productDetails"></div>
 
     <label>Size</label>
-    <select>
+    <select id="size">
         <option>Small</option>
         <option>Medium</option>
         <option>Large</option>
@@ -77,13 +91,17 @@ button {
     <input type="number" value="1" min="1" id="qty">
 
     <label>Full Name</label>
-    <input type="text" placeholder="Enter your name">
+    <input type="text" id="customerName" placeholder="Enter your name">
 
-    <label>Email</label>
-    <input type="email" placeholder="Enter your email">
+    <label>Delivery Address</label>
+    <input type="text" id="address" placeholder="Enter delivery address">
 
-    <button onclick="alert('Payment integration coming next 🔥')">
-        Proceed to Payment
+    <button class="whatsapp-btn" onclick="sendOrder()">
+        Complete Order on WhatsApp
+    </button>
+
+    <button class="instagram-btn" onclick="goInstagram()">
+        Message Us on Instagram
     </button>
 </div>
 
@@ -94,6 +112,34 @@ const price = parseInt(params.get("price"));
 
 document.getElementById("productDetails").innerHTML =
     name + " - $" + price;
+
+function sendOrder() {
+    const qty = document.getElementById("qty").value;
+    const size = document.getElementById("size").value;
+    const customerName = document.getElementById("customerName").value;
+    const address = document.getElementById("address").value;
+
+    const total = price * qty;
+
+    const message =
+        "🔥 New Order - Stoner Bear 🔥%0A%0A" +
+        "Name: " + customerName + "%0A" +
+        "Product: " + name + "%0A" +
+        "Size: " + size + "%0A" +
+        "Quantity: " + qty + "%0A" +
+        "Total: $" + total + "%0A" +
+        "Delivery Address: " + address + "%0A%0A" +
+        "I would like to complete this purchase.";
+
+    const phoneNumber = "2348103859432";
+
+    window.location.href =
+        "https://wa.me/" + phoneNumber + "?text=" + message;
+}
+
+function goInstagram() {
+    window.location.href = "https://instagram.com/stonerbear23";
+}
 </script>
 
 </body>
