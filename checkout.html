@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout | Stoner Bear</title>
+<title>Classic Tee | Stoner Bear</title>
 
 <style>
 body {
@@ -11,56 +11,163 @@ body {
     font-family: Arial, sans-serif;
     background: #0c0c0c;
     color: white;
-    text-align: center;
 }
 
-.container {
-    margin-top: 100px;
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: black;
 }
 
-h1 {
-    font-size: 36px;
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-.product-info {
-    margin-top: 30px;
-    font-size: 20px;
+nav a:hover {
     color: #d4af37;
 }
 
-button {
-    margin-top: 40px;
-    padding: 12px 30px;
+.logo {
+    height: 50px;
+}
+
+/* TITLE */
+.title {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 50px;
+    letter-spacing: 2px;
+}
+
+/* PRODUCTS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+    padding: 60px;
+}
+
+.product {
+    text-align: center;
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product h3 {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.price {
+    margin: 8px 0;
+    font-size: 18px;
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.buy-btn {
+    display: inline-block;
     background: #d4af37;
     color: black;
-    border: none;
-    font-size: 16px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
-    border-radius: 30px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.buy-btn:hover {
+    background: white;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>Checkout</h1>
-    <div class="product-info" id="productDetails"></div>
+<nav>
+    <img src="logo.png" class="logo">
+    <div>
+        <a href="index.html">Home</a>
+        <a href="hoodies.html">Hoodies</a>
+        <a href="accessories.html">Accessories</a>
+    </div>
+</nav>
 
-    <button onclick="alert('Payment system coming soon')">
-        Proceed to Payment
-    </button>
+<h1 class="title">Classic Tees</h1>
+
+<div class="products">
+
+    <div class="product">
+        <img src="classictee.jpeg">
+        <h3>Stoner Bear Classic Tee</h3>
+        <p class="price">$65</p>
+        <a class="buy-btn" href="checkout.html?name=Stoner Bear Classic Tee&price=65">Buy Now</a>
+    </div>
+
+    <div class="product">
+        <img src="origins.jpeg">
+        <h3>Stoner Bear Origins Tee</h3>
+        <p class="price">$70</p>
+        <a class="buy-btn" href="checkout.html?name=Stoner Bear Origins Tee&price=70">Buy Now</a>
+    </div>
+
+    <div class="product">
+        <img src="antisocial.jpeg">
+        <h3>Antisocial Classic Set</h3>
+        <p class="price">$110</p>
+        <a class="buy-btn" href="checkout.html?name=Antisocial Classic Set&price=110">Buy Now</a>
+    </div>
+
+    <div class="product">
+        <img src="psycho.jpeg">
+        <h3>Psycho Classic Set</h3>
+        <p class="price">$115</p>
+        <a class="buy-btn" href="checkout.html?name=Psycho Classic Set&price=115">Buy Now</a>
+    </div>
+
+    <div class="product">
+        <img src="classicset.jpeg">
+        <h3>Stoner Bear Classic Set</h3>
+        <p class="price">$105</p>
+        <a class="buy-btn" href="checkout.html?name=Stoner Bear Classic Set&price=105">Buy Now</a>
+    </div>
+
+    <div class="product">
+        <img src="heartbreak.jpeg">
+        <h3>Heartbreak Junkie Armless</h3>
+        <p class="price">$60</p>
+        <a class="buy-btn" href="checkout.html?name=Heartbreak Junkie Armless&price=60">Buy Now</a>
+    </div>
+
+    <div class="product">
+        <img src="limits.jpeg">
+        <h3>All Limits Are Self Imposed Armless</h3>
+        <p class="price">$60</p>
+        <a class="buy-btn" href="checkout.html?name=All Limits Are Self Imposed Armless&price=60">Buy Now</a>
+    </div>
+
 </div>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
-const price = params.get("price");
-
-document.getElementById("productDetails").innerHTML =
-    name + " - $" + price;
-</script>
 
 </body>
 </html>
