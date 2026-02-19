@@ -21,7 +21,7 @@ h1 {
 }
 
 .cart-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
 }
 
@@ -36,6 +36,28 @@ h1 {
     margin: 0 0 10px 0;
 }
 
+.quantity-controls {
+    margin: 10px 0;
+}
+
+.quantity-controls button {
+    background: #d4af37;
+    border: none;
+    padding: 6px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.remove-btn {
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 .total {
     font-size: 22px;
     margin-top: 30px;
@@ -43,28 +65,14 @@ h1 {
     text-align: right;
 }
 
-button {
-    padding: 10px 18px;
+.checkout-btn {
+    background: #d4af37;
+    color: black;
+    padding: 12px 20px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 10px;
-}
-
-.remove-btn {
-    background: crimson;
-    color: white;
-}
-
-.clear-btn {
-    background: gray;
-    color: white;
-}
-
-.checkout-btn {
-    background: #d4af37;
-    color: black;
     margin-top: 20px;
 }
 
@@ -95,7 +103,6 @@ button {
 <div class="total" id="cart-total"></div>
 
 <div style="text-align:right;">
-    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
     <a href="checkout.html">
         <button class="checkout-btn">Proceed to Checkout</button>
     </a>
@@ -124,8 +131,15 @@ function renderCart() {
             <div class="cart-item">
                 <h3>${item.name}</h3>
                 <p>Price: $${item.price}</p>
-                <p>Quantity: ${item.quantity}</p>
+
+                <div class="quantity-controls">
+                    <button onclick="decreaseQuantity(${index})">−</button>
+                    ${item.quantity}
+                    <button onclick="increaseQuantity(${index})">+</button>
+                </div>
+
                 <p>Subtotal: $${subtotal}</p>
+
                 <button class="remove-btn" onclick="removeItem(${index})">
                     Remove
                 </button>
@@ -137,15 +151,25 @@ function renderCart() {
         "Total: $" + total;
 }
 
-function removeItem(index) {
-    cart.splice(index, 1);
+function increaseQuantity(index) {
+    cart[index].quantity++;
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
 }
 
-function clearCart() {
-    localStorage.removeItem("cart");
-    cart = [];
+function decreaseQuantity(index) {
+    if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+    } else {
+        cart.splice(index, 1);
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
 }
 
