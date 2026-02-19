@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart | Stoner Bear</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0c0c0c;
+    color: white;
+    padding: 40px;
+}
+
+h1 {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.cart-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+.cart-item {
+    background: #111;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.cart-item h3 {
+    margin: 0 0 10px 0;
+}
+
+.total {
+    font-size: 22px;
+    margin-top: 30px;
+    color: #d4af37;
+    text-align: right;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.remove-btn {
+    background: crimson;
+    color: white;
+}
+
+.clear-btn {
+    background: gray;
+    color: white;
+}
+
+.checkout-btn {
+    background: #d4af37;
+    color: black;
+    margin-top: 20px;
+}
+
+.nav {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.nav a {
+    color: #d4af37;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Your Cart</h1>
+
+<div class="nav">
+    <a href="hoodies.html">← Continue Shopping</a>
+</div>
+
+<div class="cart-container" id="cart-container"></div>
+
+<div class="total" id="cart-total"></div>
+
+<div style="text-align:right;">
+    <button class="clear-btn" onclick="clearCart()">Clear Cart</button>
+    <a href="checkout.html">
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </a>
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let container = document.getElementById("cart-container");
+let total = 0;
+
+function renderCart() {
+    container.innerHTML = "";
+    total = 0;
+
+    if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        document.getElementById("cart-total").innerText = "";
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        let subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        container.innerHTML += `
+            <div class="cart-item">
+                <h3>${item.name}</h3>
+                <p>Price: $${item.price}</p>
+                <p>Quantity: ${item.quantity}</p>
+                <p>Subtotal: $${subtotal}</p>
+                <button class="remove-btn" onclick="removeItem(${index})">
+                    Remove
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById("cart-total").innerText =
+        "Total: $" + total;
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
+
+function clearCart() {
+    localStorage.removeItem("cart");
+    cart = [];
+    renderCart();
+}
+
+renderCart();
+</script>
+
+</body>
+</html>
