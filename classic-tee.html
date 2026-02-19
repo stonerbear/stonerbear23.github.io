@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Tee | Stoner Bear</title>
+<title>Classic Tees | Stoner Bear</title>
 
 <style>
 body {
@@ -13,161 +14,132 @@ body {
     color: white;
 }
 
-/* NAV */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background: black;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 25px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-nav a:hover {
+header {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 32px;
     color: #d4af37;
 }
 
-.logo {
-    height: 50px;
-}
-
-/* TITLE */
-.title {
+.nav {
     text-align: center;
-    font-size: 40px;
-    margin-top: 50px;
-    letter-spacing: 2px;
+    margin-bottom: 30px;
 }
 
-/* PRODUCTS */
+.nav a {
+    color: #d4af37;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 40px;
-    padding: 60px;
+    padding: 40px;
 }
 
-.product {
-    text-align: center;
+.product-card {
     background: #111;
-    padding: 20px;
-    border-radius: 12px;
-    transition: 0.3s ease;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.3s;
 }
 
-.product:hover {
-    transform: scale(1.05);
+.product-card:hover {
+    transform: translateY(-5px);
 }
 
-.product img {
+.product-card img {
     width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.product h3 {
-    margin-top: 15px;
-    font-size: 18px;
+    border-radius: 15px;
+    margin-bottom: 15px;
 }
 
 .price {
-    margin: 8px 0;
-    font-size: 18px;
     color: #d4af37;
     font-weight: bold;
+    margin: 10px 0 20px;
+    font-size: 18px;
 }
 
 .buy-btn {
-    display: inline-block;
+    padding: 12px 25px;
     background: #d4af37;
     color: black;
-    padding: 8px 18px;
-    border-radius: 20px;
-    text-decoration: none;
+    border: none;
+    border-radius: 25px;
     font-weight: bold;
-    transition: 0.3s;
-    margin-top: 10px;
-}
-
-.buy-btn:hover {
-    background: white;
+    cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-    <img src="logo.png" class="logo">
-    <div>
-        <a href="index.html">Home</a>
-        <a href="hoodies.html">Hoodies</a>
-        <a href="accessories.html">Accessories</a>
-    </div>
-</nav>
+<header>
+    STONER BEAR CLASSIC TEES
+</header>
 
-<h1 class="title">Classic Tees</h1>
+<div class="nav">
+    <a href="index.html">Home</a>
+    <a href="hoodies.html">Hoodies</a>
+    <a href="cart.html">🛒 View Cart</a>
+</div>
 
 <div class="products">
 
-    <div class="product">
-        <img src="classictee.jpeg">
-        <h3>Stoner Bear Classic Tee</h3>
-        <p class="price">$65</p>
-        <a class="buy-btn" href="checkout.html?name=Stoner Bear Classic Tee&price=65">Buy Now</a>
+    <div class="product-card">
+        <img src="classic-tee-1.jpeg">
+        <h3>Stoner Bear Classic Tee Black</h3>
+        <div class="price">$60</div>
+        <button class="buy-btn" onclick="addToCart('Stoner Bear Classic Tee Black', 60)">
+        Add to Cart
+        </button>
     </div>
 
-    <div class="product">
-        <img src="origins.jpeg">
-        <h3>Stoner Bear Origins Tee</h3>
-        <p class="price">$70</p>
-        <a class="buy-btn" href="checkout.html?name=Stoner Bear Origins Tee&price=70">Buy Now</a>
+    <div class="product-card">
+        <img src="classic-tee-2.jpeg">
+        <h3>Stoner Bear Classic Tee White</h3>
+        <div class="price">$60</div>
+        <button class="buy-btn" onclick="addToCart('Stoner Bear Classic Tee White', 60)">
+        Add to Cart
+        </button>
     </div>
 
-    <div class="product">
-        <img src="antisocial.jpeg">
-        <h3>Antisocial Classic Set</h3>
-        <p class="price">$110</p>
-        <a class="buy-btn" href="checkout.html?name=Antisocial Classic Set&price=110">Buy Now</a>
-    </div>
-
-    <div class="product">
-        <img src="psycho.jpeg">
-        <h3>Psycho Classic Set</h3>
-        <p class="price">$115</p>
-        <a class="buy-btn" href="checkout.html?name=Psycho Classic Set&price=115">Buy Now</a>
-    </div>
-
-    <div class="product">
-        <img src="classicset.jpeg">
-        <h3>Stoner Bear Classic Set</h3>
-        <p class="price">$105</p>
-        <a class="buy-btn" href="checkout.html?name=Stoner Bear Classic Set&price=105">Buy Now</a>
-    </div>
-
-    <div class="product">
-        <img src="heartbreak.jpeg">
-        <h3>Heartbreak Junkie Armless</h3>
-        <p class="price">$60</p>
-        <a class="buy-btn" href="checkout.html?name=Heartbreak Junkie Armless&price=60">Buy Now</a>
-    </div>
-
-    <div class="product">
-        <img src="limits.jpeg">
-        <h3>All Limits Are Self Imposed Armless</h3>
-        <p class="price">$60</p>
-        <a class="buy-btn" href="checkout.html?name=All Limits Are Self Imposed Armless&price=60">Buy Now</a>
+    <div class="product-card">
+        <img src="classic-tee-3.jpeg">
+        <h3>Stoner Bear Graphic Tee</h3>
+        <div class="price">$70</div>
+        <button class="buy-btn" onclick="addToCart('Stoner Bear Graphic Tee', 70)">
+        Add to Cart
+        </button>
     </div>
 
 </div>
+
+<script>
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(name + " added to cart!");
+}
+</script>
 
 </body>
 </html>
