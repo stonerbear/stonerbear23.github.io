@@ -15,10 +15,21 @@ body {
 
 header {
     text-align: center;
-    padding: 50px 0;
+    padding: 40px 20px;
     font-size: 32px;
     color: #d4af37;
-    letter-spacing: 2px;
+}
+
+.nav {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.nav a {
+    color: #d4af37;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
 }
 
 .products {
@@ -33,23 +44,17 @@ header {
     padding: 25px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 35px rgba(212,175,55,0.15);
-    transition: 0.3s ease;
+    transition: 0.3s;
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 45px rgba(212,175,55,0.4);
+    transform: translateY(-5px);
 }
 
 .product-card img {
     width: 100%;
     border-radius: 15px;
     margin-bottom: 15px;
-}
-
-.product-card h3 {
-    margin: 10px 0;
 }
 
 .price {
@@ -60,13 +65,13 @@ header {
 }
 
 .buy-btn {
-    display: inline-block;
     padding: 12px 25px;
     background: #d4af37;
     color: black;
+    border: none;
     border-radius: 25px;
-    text-decoration: none;
     font-weight: bold;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -77,69 +82,89 @@ header {
     STONER BEAR OUTERWEAR
 </header>
 
+<div class="nav">
+    <a href="index.html">Home</a>
+    <a href="cart.html">🛒 View Cart</a>
+</div>
+
 <div class="products">
 
     <div class="product-card">
-        <img src="antisocial-puffer-jacket.jpeg" alt="Antisocial Puffer Jacket">
+        <img src="antisocial-puffer-jacket.jpeg">
         <h3>Antisocial Puffer Jacket</h3>
         <div class="price">$120</div>
-        <a class="buy-btn"
-           href="checkout.html?name=Antisocial Puffer Jacket&price=120">
-           Buy Now
-        </a>
+        <button class="buy-btn" onclick="addToCart('Antisocial Puffer Jacket', 120)">
+        Add to Cart
+        </button>
     </div>
 
     <div class="product-card">
-        <img src="antisocial-sweatshirt.jpeg" alt="Antisocial Sweatshirt">
+        <img src="antisocial-sweatshirt.jpeg">
         <h3>Antisocial Sweatshirt</h3>
         <div class="price">$95</div>
-        <a class="buy-btn"
-           href="checkout.html?name=Antisocial Sweatshirt&price=95">
-           Buy Now
-        </a>
+        <button class="buy-btn" onclick="addToCart('Antisocial Sweatshirt', 95)">
+        Add to Cart
+        </button>
     </div>
 
     <div class="product-card">
-        <img src="sb-wood-walker-hoodie.jpeg" alt="Wood Walker Hoodie">
+        <img src="sb-wood-walker-hoodie.jpeg">
         <h3>SB Wood Walker Hoodie</h3>
         <div class="price">$100</div>
-        <a class="buy-btn"
-           href="checkout.html?name=SB Wood Walker Hoodie&price=100">
-           Buy Now
-        </a>
+        <button class="buy-btn" onclick="addToCart('SB Wood Walker Hoodie', 100)">
+        Add to Cart
+        </button>
     </div>
 
     <div class="product-card">
-        <img src="stoner-bear-classic-hoodie.jpeg" alt="Stonerbear Classic Hoodie">
-        <h3>Stonerbear Classic Hoodie</h3>
+        <img src="stoner-bear-classic-hoodie.jpeg">
+        <h3>Stoner Bear Classic Hoodie</h3>
         <div class="price">$90</div>
-        <a class="buy-btn"
-           href="checkout.html?name=Stonerbear Classic Hoodie&price=90">
-           Buy Now
-        </a>
+        <button class="buy-btn" onclick="addToCart('Stoner Bear Classic Hoodie', 90)">
+        Add to Cart
+        </button>
     </div>
 
     <div class="product-card">
-        <img src="stoner-bear-puffer-jacket.jpeg" alt="Stoner Bear Puffer Jacket">
+        <img src="stoner-bear-puffer-jacket.jpeg">
         <h3>Stoner Bear Puffer Jacket</h3>
         <div class="price">$130</div>
-        <a class="buy-btn"
-           href="checkout.html?name=Stoner Bear Puffer Jacket&price=130">
-           Buy Now
-        </a>
+        <button class="buy-btn" onclick="addToCart('Stoner Bear Puffer Jacket', 130)">
+        Add to Cart
+        </button>
     </div>
 
     <div class="product-card">
-        <img src="sb-flare-2pc.jpeg" alt="SB Flare 2PC Set">
+        <img src="sb-flare-2pc.jpeg">
         <h3>SB Flare 2PC Set</h3>
         <div class="price">$150</div>
-        <a class="buy-btn"
-           href="checkout.html?name=SB Flare 2PC Set&price=150">
-           Buy Now
-        </a>
+        <button class="buy-btn" onclick="addToCart('SB Flare 2PC Set', 150)">
+        Add to Cart
+        </button>
     </div>
 
 </div>
+
+<script>
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(name + " added to cart!");
+}
+</script>
 
 </body>
 </html>
