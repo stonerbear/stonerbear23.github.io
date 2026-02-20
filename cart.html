@@ -3,173 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart - Stoner Bear</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Cart | Stoner Bear</title>
 
 <style>
 body {
-    margin: 0;
-    background: #0c0c0c;
+    font-family: 'Helvetica Neue', sans-serif;
+    background: #0e0e0e;
     color: white;
-    font-family: 'Inter', sans-serif;
-}
-
-nav {
-    padding: 20px 40px;
-    background: #111;
-}
-
-nav a {
-    color: gold;
-    text-decoration: none;
-    margin-right: 20px;
-    font-weight: 500;
-}
-
-h1 {
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 3px;
-    padding: 40px;
     margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 3px;
 }
 
 .cart-container {
-    padding: 0 40px 60px 40px;
-    max-width: 1000px;
+    width: 90%;
+    max-width: 900px;
     margin: auto;
+    margin-bottom: 80px;
 }
 
 .cart-item {
     display: flex;
-    gap: 30px;
-    background: #141414;
-    padding: 25px;
-    border-radius: 16px;
-    margin-bottom: 25px;
-    align-items: center;
-}
-
-.cart-item img {
-    width: 120px;
-    border-radius: 12px;
-}
-
-.cart-info h3 {
-    font-family: 'Playfair Display', serif;
-    margin: 0 0 10px 0;
-}
-
-.cart-info p {
-    margin: 5px 0;
-    color: #aaa;
-}
-
-button {
-    background: gold;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    padding: 20px 0;
 }
 
 .total-section {
     text-align: right;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.checkout-btn:hover {
+    background: #d4af37;
+    color: black;
+}
+
+.form-section {
     margin-top: 40px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+}
+
+.social-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.social-section a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    background: #d4af37;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.social-section a:hover {
+    background: white;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="hoodies.html">Hoodies</a>
-<a href="classictee.html">Classic Tees</a>
-<a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-</nav>
-
-<h1>YOUR CART</h1>
+<header>STONER BEAR</header>
 
 <div class="cart-container">
+
 <div id="cart-items"></div>
 
 <div class="total-section">
-<h2>Total: <span id="cart-total">$0</span></h2>
-<br>
-<button onclick="checkout()">Proceed to Checkout</button>
+<strong>Total: $<span id="cart-total">0</span></strong>
 </div>
+
+<div class="form-section">
+<h3>Shipping Details</h3>
+<input type="text" id="customerName" placeholder="Full Name">
+<textarea id="customerAddress" rows="3" placeholder="Delivery Address"></textarea>
+</div>
+
+<button class="checkout-btn" onclick="checkout()">PROCEED TO WHATSAPP CHECKOUT</button>
+
+<div class="social-section">
+<p>Prefer Instagram?</p>
+<a href="https://instagram.com/stonerbear23" target="_blank">Message us on Instagram</a>
+</div>
+
 </div>
 
 <script>
-function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let totalItems = 0;
-
-    cart.forEach(item => {
-        totalItems += item.quantity || 0;
-    });
-
-    document.getElementById("cart-count").innerText = totalItems;
-}
-
-function removeItem(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    displayCart();
-    updateCartCount();
-}
-
 function displayCart() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartContainer = document.getElementById("cart-items");
+    let cartItems = document.getElementById("cart-items");
     let total = 0;
 
-    cartContainer.innerHTML = "";
+    cartItems.innerHTML = "";
 
-    if (cart.length === 0) {
-        cartContainer.innerHTML = "<p style='color:#777;'>Your cart is empty.</p>";
-        document.getElementById("cart-total").innerText = "$0";
-        return;
-    }
-
-    cart.forEach((item, index) => {
+    cart.forEach(item => {
         let price = item.price || 0;
         let quantity = item.quantity || 1;
         let size = item.size || "N/A";
-        let image = item.image || "";
 
         total += price * quantity;
 
-        cartContainer.innerHTML += `
-            <div class="cart-item">
-                ${image ? `<img src="${image}" alt="${item.name}">` : ""}
-                <div class="cart-info">
-                    <h3>${item.name}</h3>
-                    <p>Size: ${size}</p>
-                    <p>Quantity: ${quantity}</p>
-                    <p>$${price * quantity}</p>
-                    <br>
-                    <button onclick="removeItem(${index})">Remove</button>
-                </div>
+        cartItems.innerHTML += `
+        <div class="cart-item">
+            <div>
+                <strong>${item.name}</strong><br>
+                Size: ${size}<br>
+                Qty: ${quantity}
             </div>
+            <div>$${price * quantity}</div>
+        </div>
         `;
     });
 
-    document.getElementById("cart-total").innerText = "$" + total;
+    document.getElementById("cart-total").innerText = total;
 }
 
 function checkout() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let name = document.getElementById("customerName").value.trim();
+    let address = document.getElementById("customerAddress").value.trim();
+
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    if (!name || !address) {
+        alert("Please enter your full name and delivery address.");
+        return;
+    }
+
+    let orderID = "SB" + Math.floor(Math.random() * 1000000);
+    let message = `🛍️ *New Order - Stoner Bear* %0A%0A`;
+    message += `Order ID: ${orderID}%0A`;
+    message += `Customer: ${name}%0A`;
+    message += `Address: ${address}%0A%0A`;
+
+    let total = 0;
+
+    cart.forEach(item => {
+        let price = item.price || 0;
+        let quantity = item.quantity || 1;
+        let size = item.size || "N/A";
+
+        total += price * quantity;
+
+        message += `• ${item.name}%0A`;
+        message += `  Size: ${size}%0A`;
+        message += `  Qty: ${quantity}%0A`;
+        message += `  $${price * quantity}%0A%0A`;
+    });
+
+    message += `Total: $${total}%0A%0A`;
+    message += "Kindly confirm availability and payment details.";
+
+    let phoneNumber = "2348103859432";
+    let whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    window.open(whatsappURL, "_blank");
+
     localStorage.removeItem("cart");
-    window.location.href = "confirmation.html";
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    updateCartCount();
-    displayCart();
-});
+displayCart();
 </script>
 
 </body>
