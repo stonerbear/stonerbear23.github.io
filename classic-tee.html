@@ -1,42 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Classic Tees</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+}
+nav { padding: 20px; }
+nav a {
+    color: gold;
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 30px;
+}
+.product-card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+}
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+select, input {
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+}
+button {
+    background: gold;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+</style>
 </head>
+
 <body>
 
 <nav>
 <a href="index.html">Home</a>
 <a href="hoodies.html">Hoodies</a>
-<a href="classictee.html">Classic Tees</a>
+<a href="classic-tee.html">Classic Tees</a>
 <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
 </nav>
 
-<h1>Classic Tees</h1>
+<h1 style="padding-left:30px;">Classic Tees</h1>
+
+<div class="products">
 
 <div class="product-card">
-<img src="classictee.jpeg" width="200">
-<h3>Classic Tee</h3>
+<img src="antisocial.jpeg">
+<h3>Antisocial Tee</h3>
 <p>$60</p>
+<select id="size1"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty1" value="1" min="1">
+<button onclick="addToCart('Antisocial Tee',60,'antisocial.jpeg','size1','qty1')">Add to Cart</button>
+</div>
 
-<select id="size2">
-<option value="S">S</option>
-<option value="M">M</option>
-<option value="L">L</option>
-<option value="XL">XL</option>
-</select>
-
+<div class="product-card">
+<img src="classictee.jpeg">
+<h3>Classic Tee</h3>
+<p>$65</p>
+<select id="size2"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
 <input type="number" id="qty2" value="1" min="1">
+<button onclick="addToCart('Classic Tee',65,'classic-tee.jpeg','size2','qty2')">Add to Cart</button>
+</div>
 
-<button onclick="addToCart(
-'Classic Tee',
-60,
-'classictee.jpeg',
-'size2',
-'qty2'
-)">
-Add to Cart
-</button>
+<div class="product-card">
+<img src="classicset.jpeg">
+<h3>Classic Set Tee</h3>
+<p>$65</p>
+<select id="size3"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty3" value="1" min="1">
+<button onclick="addToCart('Classic Set Tee',65,'classicset.jpeg','size3','qty3')">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="heartbreak.jpeg">
+<h3>Heartbreak Tee</h3>
+<p>$70</p>
+<select id="size4"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty4" value="1" min="1">
+<button onclick="addToCart('Heartbreak Tee',70,'heartbreak.jpeg','size4','qty4')">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="limits.jpeg">
+<h3>Limits Tee</h3>
+<p>$70</p>
+<select id="size5"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty5" value="1" min="1">
+<button onclick="addToCart('Limits Tee',70,'limits.jpeg','size5','qty5')">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="origins.jpeg">
+<h3>Origins Tee</h3>
+<p>$75</p>
+<select id="size6"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty6" value="1" min="1">
+<button onclick="addToCart('Origins Tee',75,'origins.jpeg','size6','qty6')">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="psycho.jpeg">
+<h3>Psycho Tee</h3>
+<p>$80</p>
+<select id="size7"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty7" value="1" min="1">
+<button onclick="addToCart('Psycho Tee',80,'psycho.jpeg','size7','qty7')">Add to Cart</button>
+</div>
+
+<div class="product-card">
+<img src="traphouse.jpeg">
+<h3>Traphouse Tee</h3>
+<p>$80</p>
+<select id="size8"><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+<input type="number" id="qty8" value="1" min="1">
+<button onclick="addToCart('Traphouse Tee',80,'traphouse.jpeg','size8','qty8')">Add to Cart</button>
+</div>
 
 </div>
 
