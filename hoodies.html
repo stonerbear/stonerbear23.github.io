@@ -1,171 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hoodies | Stoner Bear</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0c0c0c;
-    color: white;
-}
-
-header {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 32px;
-    color: #d4af37;
-}
-
-.nav {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.nav a {
-    color: #d4af37;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-}
-
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    padding: 40px;
-}
-
-.product-card {
-    background: #111;
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-}
-
-.product-card img {
-    width: 100%;
-    border-radius: 15px;
-    margin-bottom: 15px;
-}
-
-.price {
-    color: #d4af37;
-    font-weight: bold;
-    margin: 10px 0 20px;
-    font-size: 18px;
-}
-
-.buy-btn {
-    padding: 12px 25px;
-    background: #d4af37;
-    color: black;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-}
-</style>
+<title>Hoodies</title>
 </head>
-
 <body>
 
-<header>
-    STONER BEAR OUTERWEAR
-</header>
+<nav>
+<a href="index.html">Home</a>
+<a href="hoodies.html">Hoodies</a>
+<a href="classictee.html">Classic Tees</a>
+<a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+</nav>
 
-<div class="nav">
-    <a href="index.html">Home</a>
-    <a href="cart.html">🛒 View Cart</a>
-</div>
+<h1>Hoodies</h1>
 
-<div class="products">
+<div class="product-card">
+<img src="antisocial-sweatshirt.jpeg" width="200">
+<h3>Anti Social Hoodie</h3>
+<p>$120</p>
 
-    <div class="product-card">
-        <img src="antisocial-puffer-jacket.jpeg">
-        <h3>Antisocial Puffer Jacket</h3>
-        <div class="price">$120</div>
-        <button class="buy-btn" onclick="addToCart('Antisocial Puffer Jacket', 120)">
-        Add to Cart
-        </button>
-    </div>
+<select id="size1">
+<option value="S">S</option>
+<option value="M">M</option>
+<option value="L">L</option>
+<option value="XL">XL</option>
+</select>
 
-    <div class="product-card">
-        <img src="antisocial-sweatshirt.jpeg">
-        <h3>Antisocial Sweatshirt</h3>
-        <div class="price">$95</div>
-        <button class="buy-btn" onclick="addToCart('Antisocial Sweatshirt', 95)">
-        Add to Cart
-        </button>
-    </div>
+<input type="number" id="qty1" value="1" min="1">
 
-    <div class="product-card">
-        <img src="sb-wood-walker-hoodie.jpeg">
-        <h3>SB Wood Walker Hoodie</h3>
-        <div class="price">$100</div>
-        <button class="buy-btn" onclick="addToCart('SB Wood Walker Hoodie', 100)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="stoner-bear-classic-hoodie.jpeg">
-        <h3>Stoner Bear Classic Hoodie</h3>
-        <div class="price">$90</div>
-        <button class="buy-btn" onclick="addToCart('Stoner Bear Classic Hoodie', 90)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="stoner-bear-puffer-jacket.jpeg">
-        <h3>Stoner Bear Puffer Jacket</h3>
-        <div class="price">$130</div>
-        <button class="buy-btn" onclick="addToCart('Stoner Bear Puffer Jacket', 130)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="sb-flare-2pc.jpeg">
-        <h3>SB Flare 2PC Set</h3>
-        <div class="price">$150</div>
-        <button class="buy-btn" onclick="addToCart('SB Flare 2PC Set', 150)">
-        Add to Cart
-        </button>
-    </div>
+<button onclick="addToCart(
+'Anti Social Hoodie',
+120,
+'antisocial-sweatshirt.jpeg',
+'size1',
+'qty1'
+)">
+Add to Cart
+</button>
 
 </div>
 
-<script>
-function addToCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    let existingItem = cart.find(item => item.name === name);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            name: name,
-            price: price,
-            quantity: 1
-        });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(name + " added to cart!");
-}
-</script>
 <script src="script.js"></script>
-
 </body>
 </html>
