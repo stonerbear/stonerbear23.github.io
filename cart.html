@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Cart | Stoner Bear</title>
+<title>Stoner Bear | Cart</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #0e0e0e;
+    background: #111;
     color: white;
 }
 
 header {
+    background: black;
     padding: 20px;
     text-align: center;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     letter-spacing: 2px;
-    background: black;
 }
 
 .cart-container {
-    max-width: 800px;
+    max-width: 950px;
     margin: 40px auto;
     padding: 20px;
 }
@@ -31,8 +31,32 @@ header {
 .cart-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #333;
     padding: 15px 0;
+    flex-wrap: wrap;
+}
+
+.cart-item select,
+.cart-item input {
+    padding: 6px;
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 4px;
+}
+
+.cart-item input[type=number] {
+    width: 60px;
+}
+
+.cart-item button {
+    background: red;
+    border: none;
+    padding: 6px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .total {
@@ -41,10 +65,24 @@ header {
     margin-top: 20px;
 }
 
-.checkout-btn {
+.form-section {
     margin-top: 30px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 4px;
+}
+
+.checkout-btn {
     width: 100%;
     padding: 15px;
+    margin-top: 25px;
     background: gold;
     border: none;
     font-size: 16px;
@@ -54,16 +92,21 @@ header {
 
 .checkout-btn:hover {
     background: white;
+    color: black;
 }
 </style>
 </head>
 <body>
 
-<header>
-STONER BEAR CART
-</header>
+<header>STONER BEAR CART</header>
 
-<div class="cart-container" id="cartContainer">
+<div class="cart-container" id="cartContainer"></div>
+
+<div class="form-section">
+<h3>Delivery Details</h3>
+<input type="text" id="customerName" placeholder="Full Name">
+<input type="text" id="customerPhone" placeholder="Phone Number">
+<textarea id="customerAddress" rows="3" placeholder="Delivery Address"></textarea>
 </div>
 
 <button class="checkout-btn" onclick="sendToWhatsApp()">
@@ -71,11 +114,17 @@ Complete Order via WhatsApp
 </button>
 
 <script>
+
+function generateOrderNumber() {
+    let date = new Date();
+    let random = Math.floor(Math.random() * 1000);
+    return "SB-" + date.getFullYear() + (date.getMonth()+1) + date.getDate() + "-" + random;
+}
+
 function loadCart() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let container = document.getElementById("cartContainer");
     container.innerHTML = "";
-
     let total = 0;
 
     if(cart.length === 0){
@@ -83,18 +132,34 @@ function loadCart() {
         return;
     }
 
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         total += item.price * item.quantity;
 
         container.innerHTML += `
-            <div class="cart-item">
-                <div>
-                    <strong>${item.name}</strong><br>
-                    Size: ${item.size}<br>
-                    Qty: ${item.quantity}
-                </div>
-                <div>$${item.price * item.quantity}</div>
+        <div class="cart-item">
+            <div><strong>${item.name}</strong></div>
+
+            <div>
+                Size:
+                <select onchange="updateSize(${index}, this.value)">
+                    <option value="S" ${item.size==='S'?'selected':''}>S</option>
+                    <option value="M" ${item.size==='M'?'selected':''}>M</option>
+                    <option value="L" ${item.size==='L'?'selected':''}>L</option>
+                    <option value="XL" ${item.size==='XL'?'selected':''}>XL</option>
+                </select>
             </div>
+
+            <div>
+                Qty:
+                <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)">
+            </div>
+
+            <div>$${item.price * item.quantity}</div>
+
+            <div>
+                <button onclick="removeItem(${index})">Remove</button>
+            </div>
+        </div>
         `;
     });
 
@@ -105,31 +170,70 @@ function loadCart() {
     `;
 }
 
-function sendToWhatsApp() {
+function updateQuantity(index, qty) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart[index].quantity = parseInt(qty);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
+
+function updateSize(index, size) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart[index].size = size;
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+}
+
+function sendToWhatsApp() {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let name = document.getElementById("customerName").value.trim();
+    let phone = document.getElementById("customerPhone").value.trim();
+    let address = document.getElementById("customerAddress").value.trim();
 
     if(cart.length === 0){
         alert("Your cart is empty!");
         return;
     }
 
-    let message = "Hello, I would like to place an order:%0A%0A";
+    if(!name || !phone || !address){
+        alert("Please complete all delivery details.");
+        return;
+    }
+
+    let orderNumber = generateOrderNumber();
+
+    let message = "🛍️ *New Order - Stoner Bear*%0A%0A";
+    message += "Order Number: " + orderNumber + "%0A%0A";
+    message += "Customer Details:%0A";
+    message += "Name: " + name + "%0A";
+    message += "Phone: " + phone + "%0A";
+    message += "Address: " + address + "%0A%0A";
+    message += "Order Items:%0A";
+
     let total = 0;
 
     cart.forEach(item => {
         total += item.price * item.quantity;
-        message += `• ${item.name} | Size: ${item.size} | Qty: ${item.quantity} | $${item.price * item.quantity}%0A`;
+        message += "- " + item.name + " | Size: " + item.size + " | Qty: " + item.quantity + " | $" + (item.price * item.quantity) + "%0A";
     });
 
-    message += `%0A Total: $${total}`;
+    message += "%0ATotal: $" + total + "%0A%0A";
+    message += "Please confirm availability and payment details.";
 
-    let phoneNumber = "2348103859432"; 
-    // Nigeria format (remove first 0 and add 234)
+    let phoneNumber = "2348103859432";
+    window.open("https://wa.me/" + phoneNumber + "?text=" + message, "_blank");
 
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
 }
 
 loadCart();
+
 </script>
 
 </body>
