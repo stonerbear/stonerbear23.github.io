@@ -1,8 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Cart</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+nav {
+    margin-bottom: 30px;
+}
+
+nav a {
+    color: gold;
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+.cart-item {
+    display: flex;
+    gap: 20px;
+    background: #1a1a1a;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.cart-item img {
+    width: 100px;
+    border-radius: 10px;
+}
+
+button {
+    background: gold;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.total {
+    font-size: 20px;
+    margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
 <nav>
@@ -16,12 +73,75 @@
 
 <div id="cart-items"></div>
 
-<h2>Total: <span id="cart-total">$0</span></h2>
+<div class="total">
+Total: <span id="cart-total">$0</span>
+</div>
 
 <button onclick="localStorage.clear(); location.reload();">
 Clear Cart
 </button>
 
-<script src="script.js"></script>
+<script>
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let totalItems = 0;
+
+    cart.forEach(item => {
+        totalItems += item.quantity || 0;
+    });
+
+    document.getElementById("cart-count").innerText = totalItems;
+}
+
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    location.reload();
+}
+
+function displayCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartContainer = document.getElementById("cart-items");
+    let total = 0;
+
+    cartContainer.innerHTML = "";
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+    }
+
+    cart.forEach((item, index) => {
+        let price = item.price || 0;
+        let quantity = item.quantity || 1;
+        let size = item.size || "N/A";
+        let image = item.image || "";
+
+        total += price * quantity;
+
+        cartContainer.innerHTML += `
+            <div class="cart-item">
+                ${image ? `<img src="${image}">` : ""}
+                <div>
+                    <h3>${item.name}</h3>
+                    <p>Size: ${size}</p>
+                    <p>Quantity: ${quantity}</p>
+                    <p>$${price * quantity}</p>
+                    <button onclick="removeItem(${index})">Remove</button>
+                </div>
+            </div>
+        `;
+    });
+
+    document.getElementById("cart-total").innerText = "$" + total;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    updateCartCount();
+    displayCart();
+});
+</script>
+
 </body>
 </html>
