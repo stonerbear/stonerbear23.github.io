@@ -18,9 +18,6 @@ body {
 nav {
     padding: 20px 40px;
     background: #111;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 nav a {
@@ -28,11 +25,6 @@ nav a {
     text-decoration: none;
     margin-right: 20px;
     font-weight: 500;
-    transition: 0.3s ease;
-}
-
-nav a:hover {
-    opacity: 0.7;
 }
 
 h1 {
@@ -44,7 +36,7 @@ h1 {
 
 .cart-container {
     padding: 0 40px 60px 40px;
-    max-width: 1100px;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -56,15 +48,10 @@ h1 {
     border-radius: 16px;
     margin-bottom: 25px;
     align-items: center;
-    transition: 0.3s ease;
-}
-
-.cart-item:hover {
-    box-shadow: 0 20px 40px rgba(255,215,0,0.08);
 }
 
 .cart-item img {
-    width: 140px;
+    width: 120px;
     border-radius: 12px;
 }
 
@@ -85,27 +72,11 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
-    transition: 0.3s ease;
-}
-
-button:hover {
-    background: #d4af37;
-    transform: scale(1.03);
 }
 
 .total-section {
     text-align: right;
     margin-top: 40px;
-}
-
-.total-section h2 {
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 2px;
-}
-
-.empty-message {
-    color: #888;
-    padding: 20px 0;
 }
 </style>
 </head>
@@ -113,12 +84,10 @@ button:hover {
 <body>
 
 <nav>
-<div>
 <a href="index.html">Home</a>
 <a href="hoodies.html">Hoodies</a>
 <a href="classictee.html">Classic Tees</a>
 <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-</div>
 </nav>
 
 <h1>YOUR CART</h1>
@@ -149,7 +118,8 @@ function removeItem(index) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload();
+    displayCart();
+    updateCartCount();
 }
 
 function displayCart() {
@@ -160,7 +130,7 @@ function displayCart() {
     cartContainer.innerHTML = "";
 
     if (cart.length === 0) {
-        cartContainer.innerHTML = "<p class='empty-message'>Your cart is empty.</p>";
+        cartContainer.innerHTML = "<p style='color:#777;'>Your cart is empty.</p>";
         document.getElementById("cart-total").innerText = "$0";
         return;
     }
@@ -175,7 +145,7 @@ function displayCart() {
 
         cartContainer.innerHTML += `
             <div class="cart-item">
-                ${image ? <img src="${image}" alt="${item.name}"> : ""}
+                ${image ? `<img src="${image}" alt="${item.name}">` : ""}
                 <div class="cart-info">
                     <h3>${item.name}</h3>
                     <p>Size: ${size}</p>
@@ -193,18 +163,7 @@ function displayCart() {
 
 function checkout() {
     localStorage.removeItem("cart");
-    window.
-        location.href = "confirmation.html";
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    updateCartCount();
-    displayCart();
-});
-</script>
-
-</body>
-</html>location.href = "confirmation.html";
+    window.location.href = "confirmation.html";
 }
 
 document.addEventListener("DOMContentLoaded", function() {
