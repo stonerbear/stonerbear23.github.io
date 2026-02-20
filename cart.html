@@ -3,203 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart | Stoner Bear</title>
+<title>Your Cart | Stoner Bear</title>
 
 <style>
 body {
-    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    font-family: Arial, sans-serif;
     background: #0e0e0e;
     color: white;
-    margin: 0;
-    padding: 0;
 }
 
 header {
+    padding: 20px;
     text-align: center;
-    padding: 30px 0;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: bold;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
+    background: black;
 }
 
 .cart-container {
-    width: 90%;
-    max-width: 900px;
-    margin: auto;
-    margin-bottom: 80px;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #333;
-    padding: 20px 0;
+    padding: 15px 0;
 }
 
-.total-section {
+.total {
     text-align: right;
-    margin-top: 30px;
     font-size: 20px;
+    margin-top: 20px;
 }
 
 .checkout-btn {
+    margin-top: 30px;
     width: 100%;
     padding: 15px;
-    margin-top: 30px;
-    background: white;
-    color: black;
+    background: gold;
     border: none;
     font-size: 16px;
-    cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
+    cursor: pointer;
 }
 
 .checkout-btn:hover {
-    background: #d4af37;
-    color: black;
-}
-
-.form-section {
-    margin-top: 40px;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    color: white;
-}
-
-.social-section {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.social-section a {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 25px;
-    background: #d4af37;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.social-section a:hover {
     background: white;
 }
 </style>
 </head>
-
 <body>
 
-<header>STONER BEAR</header>
+<header>
+STONER BEAR CART
+</header>
 
-<div class="cart-container">
-
-<div id="cart-items"></div>
-
-<div class="total-section">
-<strong>Total: $<span id="cart-total">0</span></strong>
+<div class="cart-container" id="cartContainer">
 </div>
 
-<div class="form-section">
-<h3>Shipping Details</h3>
-<input type="text" id="customerName" placeholder="Full Name">
-<textarea id="customerAddress" rows="3" placeholder="Delivery Address"></textarea>
-</div>
-
-<button class="checkout-btn" onclick="checkout()">PROCEED TO WHATSAPP CHECKOUT</button>
-
-<div class="social-section">
-<p>Prefer Instagram?</p>
-<a href="https://instagram.com/stonerbear23" target="_blank">Message us on Instagram</a>
-</div>
-
-</div>
+<button class="checkout-btn" onclick="sendToWhatsApp()">
+Complete Order via WhatsApp
+</button>
 
 <script>
-function displayCart() {
+function loadCart() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let cartItems = document.getElementById("cart-items");
+    let container = document.getElementById("cartContainer");
+    container.innerHTML = "";
+
     let total = 0;
 
-    cartItems.innerHTML = "";
+    if(cart.length === 0){
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+    }
 
     cart.forEach(item => {
-        let price = item.price || 0;
-        let quantity = item.quantity || 1;
-        let size = item.size || "N/A";
+        total += item.price * item.quantity;
 
-        total += price * quantity;
-
-        cartItems.innerHTML += `
-        <div class="cart-item">
-            <div>
-                <strong>${item.name}</strong><br>
-                Size: ${size}<br>
-                Qty: ${quantity}
+        container.innerHTML += `
+            <div class="cart-item">
+                <div>
+                    <strong>${item.name}</strong><br>
+                    Size: ${item.size}<br>
+                    Qty: ${item.quantity}
+                </div>
+                <div>$${item.price * item.quantity}</div>
             </div>
-            <div>$${price * quantity}</div>
-        </div>
         `;
     });
 
-    document.getElementById("cart-total").innerText = total;
+    container.innerHTML += `
+        <div class="total">
+            <strong>Total: $${total}</strong>
+        </div>
+    `;
 }
 
-function checkout() {
+function sendToWhatsApp() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let name = document.getElementById("customerName").value.trim();
-    let address = document.getElementById("customerAddress").value.trim();
 
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
+    if(cart.length === 0){
+        alert("Your cart is empty!");
         return;
     }
 
-    if (!name || !address) {
-        alert("Please enter your full name and delivery address.");
-        return;
-    }
-
-    let orderID = "SB" + Math.floor(Math.random() * 1000000);
-    let message = `🛍️ *New Order - Stoner Bear* %0A%0A`;
-    message += `Order ID: ${orderID}%0A`;
-    message += `Customer: ${name}%0A`;
-    message += `Address: ${address}%0A%0A`;
-
+    let message = "Hello, I would like to place an order:%0A%0A";
     let total = 0;
 
     cart.forEach(item => {
-        let price = item.price || 0;
-        let quantity = item.quantity || 1;
-        let size = item.size || "N/A";
-
-        total += price * quantity;
-
-        message += `• ${item.name}%0A`;
-        message += `  Size: ${size}%0A`;
-        message += `  Qty: ${quantity}%0A`;
-        message += `  $${price * quantity}%0A%0A`;
+        total += item.price * item.quantity;
+        message += `• ${item.name} | Size: ${item.size} | Qty: ${item.quantity} | $${item.price * item.quantity}%0A`;
     });
 
-    message += `Total: $${total}%0A%0A`;
-    message += "Kindly confirm availability and payment details.";
+    message += `%0A Total: $${total}`;
 
-    let phoneNumber = "2348103859432";
-    let whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+    let phoneNumber = "2348103859432"; 
+    // Nigeria format (remove first 0 and add 234)
 
-    window.open(whatsappURL, "_blank");
-
-    localStorage.removeItem("cart");
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
 }
 
-displayCart();
+loadCart();
 </script>
 
 </body>
