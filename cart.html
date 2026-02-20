@@ -3,115 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stoner Bear | Cart</title>
+<title>Stoner Bear | Luxury Cart</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #111;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a, #111);
     color: white;
 }
 
 header {
-    background: black;
-    padding: 20px;
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
+    padding: 40px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    letter-spacing: 4px;
+    background: black;
+    border-bottom: 1px solid rgba(255,215,0,0.2);
 }
 
-.cart-container {
-    max-width: 950px;
-    margin: 40px auto;
-    padding: 20px;
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,215,0,0.15);
+    box-shadow: 0 0 40px rgba(255,215,0,0.05);
 }
 
 .cart-item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto auto;
+    gap: 15px;
     align-items: center;
-    border-bottom: 1px solid #333;
-    padding: 15px 0;
-    flex-wrap: wrap;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,215,0,0.1);
 }
 
 .cart-item select,
 .cart-item input {
-    padding: 6px;
-    background: #222;
-    border: 1px solid #333;
+    background: #111;
+    border: 1px solid rgba(255,215,0,0.3);
     color: white;
-    border-radius: 4px;
-}
-
-.cart-item input[type=number] {
-    width: 60px;
+    padding: 8px;
+    border-radius: 6px;
 }
 
 .cart-item button {
-    background: red;
-    border: none;
-    padding: 6px 10px;
-    color: white;
+    background: transparent;
+    border: 1px solid red;
+    color: red;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.cart-item button:hover {
+    background: red;
+    color: white;
 }
 
 .total {
     text-align: right;
-    font-size: 20px;
-    margin-top: 20px;
+    font-size: 22px;
+    margin-top: 30px;
+    font-weight: 600;
+    color: gold;
 }
 
 .form-section {
-    margin-top: 30px;
+    margin-top: 40px;
+}
+
+.form-section h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
 }
 
 input, textarea {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: #1a1a1a;
-    border: 1px solid #333;
+    padding: 14px;
+    margin-bottom: 15px;
+    background: #111;
+    border: 1px solid rgba(255,215,0,0.3);
     color: white;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: gold;
+    box-shadow: 0 0 10px rgba(255,215,0,0.3);
 }
 
 .checkout-btn {
     width: 100%;
-    padding: 15px;
-    margin-top: 25px;
-    background: gold;
+    padding: 18px;
+    background: linear-gradient(45deg, gold, #caa400);
     border: none;
+    border-radius: 12px;
+    font-weight: 600;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
+    transition: 0.4s;
+    letter-spacing: 2px;
 }
 
 .checkout-btn:hover {
-    background: white;
-    color: black;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,215,0,0.3);
 }
+
+.empty {
+    text-align: center;
+    padding: 40px;
+    opacity: 0.6;
+}
+
+@media(max-width:768px){
+    .cart-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
 </style>
 </head>
 <body>
 
-<header>STONER BEAR CART</header>
+<header>STONER BEAR</header>
 
-<div class="cart-container" id="cartContainer"></div>
+<div class="container" id="cartContainer"></div>
 
-<div class="form-section">
-<h3>Delivery Details</h3>
+<div class="container form-section">
+<h3>DELIVERY DETAILS</h3>
 <input type="text" id="customerName" placeholder="Full Name">
 <input type="text" id="customerPhone" placeholder="Phone Number">
 <textarea id="customerAddress" rows="3" placeholder="Delivery Address"></textarea>
-</div>
 
 <button class="checkout-btn" onclick="sendToWhatsApp()">
-Complete Order via WhatsApp
+COMPLETE ORDER
 </button>
+</div>
 
 <script>
 
@@ -128,7 +170,7 @@ function loadCart() {
     let total = 0;
 
     if(cart.length === 0){
-        container.innerHTML = "<p>Your cart is empty.</p>";
+        container.innerHTML = "<div class='empty'>Your luxury cart is empty.</div>";
         return;
     }
 
@@ -138,35 +180,21 @@ function loadCart() {
         container.innerHTML += `
         <div class="cart-item">
             <div><strong>${item.name}</strong></div>
-
-            <div>
-                Size:
-                <select onchange="updateSize(${index}, this.value)">
-                    <option value="S" ${item.size==='S'?'selected':''}>S</option>
-                    <option value="M" ${item.size==='M'?'selected':''}>M</option>
-                    <option value="L" ${item.size==='L'?'selected':''}>L</option>
-                    <option value="XL" ${item.size==='XL'?'selected':''}>XL</option>
-                </select>
-            </div>
-
-            <div>
-                Qty:
-                <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)">
-            </div>
-
+            <select onchange="updateSize(${index}, this.value)">
+                <option value="S" ${item.size==='S'?'selected':''}>S</option>
+                <option value="M" ${item.size==='M'?'selected':''}>M</option>
+                <option value="L" ${item.size==='L'?'selected':''}>L</option>
+                <option value="XL" ${item.size==='XL'?'selected':''}>XL</option>
+            </select>
+            <input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)">
             <div>$${item.price * item.quantity}</div>
-
-            <div>
-                <button onclick="removeItem(${index})">Remove</button>
-            </div>
+            <button onclick="removeItem(${index})">Remove</button>
         </div>
         `;
     });
 
     container.innerHTML += `
-        <div class="total">
-            <strong>Total: $${total}</strong>
-        </div>
+        <div class="total">TOTAL — $${total}</div>
     `;
 }
 
@@ -198,38 +226,35 @@ function sendToWhatsApp() {
     let address = document.getElementById("customerAddress").value.trim();
 
     if(cart.length === 0){
-        alert("Your cart is empty!");
+        alert("Your cart is empty.");
         return;
     }
 
     if(!name || !phone || !address){
-        alert("Please complete all delivery details.");
+        alert("Please complete delivery details.");
         return;
     }
 
     let orderNumber = generateOrderNumber();
+    let total = 0;
 
     let message = "🛍️ *New Order - Stoner Bear*%0A%0A";
     message += "Order Number: " + orderNumber + "%0A%0A";
-    message += "Customer Details:%0A";
-    message += "Name: " + name + "%0A";
-    message += "Phone: " + phone + "%0A";
-    message += "Address: " + address + "%0A%0A";
-    message += "Order Items:%0A";
-
-    let total = 0;
+    message += "Customer:%0A";
+    message += name + "%0A";
+    message += phone + "%0A";
+    message += address + "%0A%0A";
+    message += "Items:%0A";
 
     cart.forEach(item => {
         total += item.price * item.quantity;
         message += "- " + item.name + " | Size: " + item.size + " | Qty: " + item.quantity + " | $" + (item.price * item.quantity) + "%0A";
     });
 
-    message += "%0ATotal: $" + total + "%0A%0A";
-    message += "Please confirm availability and payment details.";
+    message += "%0ATotal: $" + total;
 
     let phoneNumber = "2348103859432";
     window.open("https://wa.me/" + phoneNumber + "?text=" + message, "_blank");
-
 }
 
 loadCart();
