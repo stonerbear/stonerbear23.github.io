@@ -1,181 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Cart | Stoner Bear</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0c0c0c;
-    color: white;
-    padding: 40px;
-}
-
-h1 {
-    color: #d4af37;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.cart-container {
-    max-width: 900px;
-    margin: auto;
-}
-
-.cart-item {
-    background: #111;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-}
-
-.cart-item h3 {
-    margin: 0 0 10px 0;
-}
-
-.quantity-controls {
-    margin: 10px 0;
-}
-
-.quantity-controls button {
-    background: #d4af37;
-    border: none;
-    padding: 6px 12px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 0 5px;
-}
-
-.remove-btn {
-    background: crimson;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.total {
-    font-size: 22px;
-    margin-top: 30px;
-    color: #d4af37;
-    text-align: right;
-}
-
-.checkout-btn {
-    background: #d4af37;
-    color: black;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.nav {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.nav a {
-    color: #d4af37;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-}
-</style>
+<title>Your Cart</title>
 </head>
-
 <body>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="hoodies.html">Hoodies</a>
+<a href="classictee.html">Classic Tees</a>
+<a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+</nav>
 
 <h1>Your Cart</h1>
 
-<div class="nav">
-    <a href="hoodies.html">← Continue Shopping</a>
-</div>
+<div id="cart-items"></div>
 
-<div class="cart-container" id="cart-container"></div>
+<h2>Total: <span id="cart-total">$0</span></h2>
 
-<div class="total" id="cart-total"></div>
+<button onclick="localStorage.clear(); location.reload();">
+Clear Cart
+</button>
 
-<div style="text-align:right;">
-    <a href="checkout.html">
-        <button class="checkout-btn">Proceed to Checkout</button>
-    </a>
-</div>
-
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let container = document.getElementById("cart-container");
-let total = 0;
-
-function renderCart() {
-    container.innerHTML = "";
-    total = 0;
-
-    if (cart.length === 0) {
-        container.innerHTML = "<p>Your cart is empty.</p>";
-        document.getElementById("cart-total").innerText = "";
-        return;
-    }
-
-    cart.forEach((item, index) => {
-        let subtotal = item.price * item.quantity;
-        total += subtotal;
-
-        container.innerHTML += `
-            <div class="cart-item">
-                <h3>${item.name}</h3>
-                <p>Price: $${item.price}</p>
-
-                <div class="quantity-controls">
-                    <button onclick="decreaseQuantity(${index})">−</button>
-                    ${item.quantity}
-                    <button onclick="increaseQuantity(${index})">+</button>
-                </div>
-
-                <p>Subtotal: $${subtotal}</p>
-
-                <button class="remove-btn" onclick="removeItem(${index})">
-                    Remove
-                </button>
-            </div>
-        `;
-    });
-
-    document.getElementById("cart-total").innerText =
-        "Total: $" + total;
-}
-
-function increaseQuantity(index) {
-    cart[index].quantity++;
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-}
-
-function decreaseQuantity(index) {
-    if (cart[index].quantity > 1) {
-        cart[index].quantity--;
-    } else {
-        cart.splice(index, 1);
-    }
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-}
-
-function removeItem(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-}
-
-renderCart();
-</script>
 <script src="script.js"></script>
-
 </body>
 </html>
