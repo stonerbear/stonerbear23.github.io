@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -96,13 +95,6 @@ input, textarea {
     border: 1px solid rgba(255,215,0,0.3);
     color: white;
     border-radius: 8px;
-    font-size: 14px;
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: gold;
-    box-shadow: 0 0 10px rgba(255,215,0,0.3);
 }
 
 .checkout-btn {
@@ -114,13 +106,61 @@ input:focus, textarea:focus {
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.4s;
     letter-spacing: 2px;
 }
 
 .checkout-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+}
+
+/* Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #111;
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 40px rgba(255,215,0,0.2);
+}
+
+.modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 15px;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-btn {
+    background: gold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: transparent;
+    border: 1px solid red;
+    color: red;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .empty {
@@ -128,14 +168,6 @@ input:focus, textarea:focus {
     padding: 40px;
     opacity: 0.6;
 }
-
-@media(max-width:768px){
-    .cart-item {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-}
-
 </style>
 </head>
 <body>
@@ -149,13 +181,24 @@ input:focus, textarea:focus {
 <input type="text" id="customerName" placeholder="Full Name">
 <input type="text" id="customerPhone" placeholder="Phone Number">
 <textarea id="customerAddress" rows="3" placeholder="Delivery Address"></textarea>
+<button class="checkout-btn" onclick="openConfirmation()">COMPLETE ORDER</button>
+</div>
 
-<button class="checkout-btn" onclick="sendToWhatsApp()">
-COMPLETE ORDER
-</button>
+<!-- Confirmation Modal -->
+<div class="modal" id="confirmationModal">
+    <div class="modal-content">
+        <h2>Confirm Your Order</h2>
+        <div id="orderSummary"></div>
+        <div class="modal-buttons">
+            <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            <button class="confirm-btn" onclick="confirmOrder()">Confirm</button>
+        </div>
+    </div>
 </div>
 
 <script>
+
+let currentOrderNumber = "";
 
 function generateOrderNumber() {
     let date = new Date();
@@ -193,9 +236,7 @@ function loadCart() {
         `;
     });
 
-    container.innerHTML += `
-        <div class="total">TOTAL — $${total}</div>
-    `;
+    container.innerHTML += `<div class="total">TOTAL — $${total}</div>`;
 }
 
 function updateQuantity(index, qty) {
@@ -218,7 +259,7 @@ function removeItem(index) {
     loadCart();
 }
 
-function sendToWhatsApp() {
+function openConfirmation() {
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let name = document.getElementById("customerName").value.trim();
@@ -235,16 +276,37 @@ function sendToWhatsApp() {
         return;
     }
 
-    let orderNumber = generateOrderNumber();
+    currentOrderNumber = generateOrderNumber();
+
+    let summary = "<strong>Order Number:</strong> " + currentOrderNumber + "<br><br>";
     let total = 0;
 
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+        summary += item.name + " | Size: " + item.size + " | Qty: " + item.quantity + " | $" + (item.price * item.quantity) + "<br>";
+    });
+
+    summary += "<br><strong>Total: $" + total + "</strong>";
+
+    document.getElementById("orderSummary").innerHTML = summary;
+    document.getElementById("confirmationModal").style.display = "flex";
+}
+
+function closeModal(){
+    document.getElementById("confirmationModal").style.display = "none";
+}
+
+function confirmOrder(){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let name = document.getElementById("customerName").value.trim();
+    let phone = document.getElementById("customerPhone").value.trim();
+    let address = document.getElementById("customerAddress").value.trim();
+
+    let total = 0;
     let message = "🛍️ *New Order - Stoner Bear*%0A%0A";
-    message += "Order Number: " + orderNumber + "%0A%0A";
-    message += "Customer:%0A";
-    message += name + "%0A";
-    message += phone + "%0A";
-    message += address + "%0A%0A";
-    message += "Items:%0A";
+    message += "Order Number: " + currentOrderNumber + "%0A%0A";
+    message += "Customer:%0A" + name + "%0A" + phone + "%0A" + address + "%0A%0AItems:%0A";
 
     cart.forEach(item => {
         total += item.price * item.quantity;
@@ -253,8 +315,13 @@ function sendToWhatsApp() {
 
     message += "%0ATotal: $" + total;
 
+    localStorage.removeItem("cart");
+
     let phoneNumber = "2348103859432";
     window.open("https://wa.me/" + phoneNumber + "?text=" + message, "_blank");
+
+    closeModal();
+    loadCart();
 }
 
 loadCart();
