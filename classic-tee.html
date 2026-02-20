@@ -1,190 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Tees | Stoner Bear</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0c0c0c;
-    color: white;
-}
-
-header {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 32px;
-    color: #d4af37;
-}
-
-.nav {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.nav a {
-    color: #d4af37;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-}
-
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    padding: 40px;
-}
-
-.product-card {
-    background: #111;
-    padding: 20px;
-    border-radius: 20px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-}
-
-.product-card img {
-    width: 100%;
-    border-radius: 15px;
-    margin-bottom: 15px;
-}
-
-.price {
-    color: #d4af37;
-    font-weight: bold;
-    margin: 10px 0 20px;
-    font-size: 18px;
-}
-
-.buy-btn {
-    padding: 12px 25px;
-    background: #d4af37;
-    color: black;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-}
-</style>
+<title>Classic Tees</title>
 </head>
-
 <body>
 
-<header>
-    STONER BEAR CLASSIC TEES
-</header>
+<nav>
+<a href="index.html">Home</a>
+<a href="hoodies.html">Hoodies</a>
+<a href="classictee.html">Classic Tees</a>
+<a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+</nav>
 
-<div class="nav">
-    <a href="index.html">Home</a>
-    <a href="hoodies.html">Hoodies</a>
-    <a href="cart.html">🛒 View Cart</a>
-</div>
+<h1>Classic Tees</h1>
 
-<div class="products">
+<div class="product-card">
+<img src="classictee.jpeg" width="200">
+<h3>Classic Tee</h3>
+<p>$60</p>
 
-    <div class="product-card">
-        <img src="antisocial.jpeg">
-        <h3>Antisocial Tee</h3>
-        <div class="price">$60</div>
-        <button class="buy-btn" onclick="addToCart('Antisocial Tee', 60)">
-        Add to Cart
-        </button>
-    </div>
+<select id="size2">
+<option value="S">S</option>
+<option value="M">M</option>
+<option value="L">L</option>
+<option value="XL">XL</option>
+</select>
 
-    <div class="product-card">
-        <img src="classicset.jpeg">
-        <h3>Classic Set Tee</h3>
-        <div class="price">$65</div>
-        <button class="buy-btn" onclick="addToCart('Classic Set Tee', 65)">
-        Add to Cart
-        </button>
-    </div>
+<input type="number" id="qty2" value="1" min="1">
 
-    <div class="product-card">
-        <img src="classictee.jpeg">
-        <h3>Classic Logo Tee</h3>
-        <div class="price">$60</div>
-        <button class="buy-btn" onclick="addToCart('Classic Logo Tee', 60)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="heartbreak.jpeg">
-        <h3>Heartbreak Tee</h3>
-        <div class="price">$70</div>
-        <button class="buy-btn" onclick="addToCart('Heartbreak Tee', 70)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="limits.jpeg">
-        <h3>No Limits Tee</h3>
-        <div class="price">$65</div>
-        <button class="buy-btn" onclick="addToCart('No Limits Tee', 65)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="origins.jpeg">
-        <h3>Origins Tee</h3>
-        <div class="price">$70</div>
-        <button class="buy-btn" onclick="addToCart('Origins Tee', 70)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="psycho.jpeg">
-        <h3>Psycho Tee</h3>
-        <div class="price">$75</div>
-        <button class="buy-btn" onclick="addToCart('Psycho Tee', 75)">
-        Add to Cart
-        </button>
-    </div>
-
-    <div class="product-card">
-        <img src="traphouse.jpeg">
-        <h3>Traphouse Tee</h3>
-        <div class="price">$75</div>
-        <button class="buy-btn" onclick="addToCart('Traphouse Tee', 75)">
-        Add to Cart
-        </button>
-    </div>
+<button onclick="addToCart(
+'Classic Tee',
+60,
+'classictee.jpeg',
+'size2',
+'qty2'
+)">
+Add to Cart
+</button>
 
 </div>
 
-<script>
-function addToCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    let existingItem = cart.find(item => item.name === name);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            name: name,
-            price: price,
-            quantity: 1
-        });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(name + " added to cart!");
-}
-</script>
 <script src="script.js"></script>
-
 </body>
 </html>
