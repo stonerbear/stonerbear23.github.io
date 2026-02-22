@@ -2,76 +2,149 @@
 <html>
 <head>
     <title>Accessories - Stoner Bear</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         body {
-            background: black;
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
         }
 
-        .nav {
+        header {
             padding: 20px;
-        }
-
-        .nav a {
-            color: #39FF14;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        h1 {
-            margin-top: 40px;
-            font-size: 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             letter-spacing: 3px;
         }
 
-        .product {
-            margin: 60px 20px;
+        h1 {
+            font-weight: 300;
         }
 
-        .btn {
-            background: #39FF14;
-            color: black;
-            padding: 10px 20px;
-            text-decoration: none;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: #111;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255,215,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(255,215,0,0.2);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            color: gold;
+            margin: 10px 0;
             font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
         }
 
-        .btn:hover {
-            box-shadow: 0 0 20px #39FF14;
+        button {
+            padding: 12px 20px;
+            background: gold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #caa400;
+        }
+
+        .nav {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .nav a {
+            color: gold;
+            text-decoration: none;
+            margin: 0 15px;
         }
     </style>
 </head>
 
 <body>
 
+<header>
+    <h1>STONER BEAR ACCESSORIES</h1>
+</header>
+
 <div class="nav">
-    <a href="shop.html">← Back to Shop</a>
+    <a href="hoodies.html">Hoodies</a>
+    <a href="classictee.html">Classic Tees</a>
+    <a href="cart.html">Cart</a>
 </div>
 
-<h1>BEANIES & ACCESSORIES</h1>
+<div class="grid">
 
-<div class="product">
-    <h2>Classic Logo Beanie</h2>
-    <p>₦ --</p>
-    <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">
-        ORDER VIA DM
-    </a>
+    <div class="card">
+        <img src="cap.jpeg">
+        <h3>Stoner Bear Signature Cap</h3>
+        <div class="price">$45</div>
+        <button onclick="addToCart('Stoner Bear Signature Cap',45)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="chain.jpeg">
+        <h3>Stoner Bear Gold Chain</h3>
+        <div class="price">$120</div>
+        <button onclick="addToCart('Stoner Bear Gold Chain',120)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="bracelet.jpeg">
+        <h3>Stoner Bear Luxury Bracelet</h3>
+        <div class="price">$75</div>
+        <button onclick="addToCart('Stoner Bear Luxury Bracelet',75)">Add to Cart</button>
+    </div>
+
+    <div class="card">
+        <img src="crossbody.jpeg">
+        <h3>Stoner Bear Crossbody Bag</h3>
+        <div class="price">$150</div>
+        <button onclick="addToCart('Stoner Bear Crossbody Bag',150)">Add to Cart</button>
+    </div>
+
 </div>
 
-<div class="product">
-    <h2>Stoner Bear Cap</h2>
-    <p>₦ --</p>
-    <a href="https://instagram.com/stonerbear23" target="_blank" class="btn">
-        ORDER VIA DM
-    </a>
-</div>
+<script>
+function addToCart(name, price) {
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: name,
+        price: price,
+        quantity: 1,
+        size: "N/A"
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Added to cart");
+}
+</script>
 
 </body>
 </html>
